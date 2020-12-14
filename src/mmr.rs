@@ -269,6 +269,11 @@ impl<T: PartialEq + Debug + Clone, M: Merge<Item = T>> MerkleProof<T, M> {
     }
 
     pub fn verify(&self, root: T, leaves: Vec<(u64, T)>) -> Result<bool> {
+        println!("");
+        println!("root: {:?}", root);
+        println!("leaves len: {}", leaves.len());
+        println!("leaves: {:?}", leaves);
+        println!("");
         self.calculate_root(leaves)
             .map(|calculated_root| calculated_root == root)
     }
@@ -412,7 +417,10 @@ fn calculate_root<
     mmr_size: u64,
     proof_iter: I,
 ) -> Result<T> {
+    println!("mmr_size: {}", mmr_size);
     let peaks_hashes = calculate_peaks_hashes::<_, M, _>(leaves, mmr_size, proof_iter)?;
+    println!("peaks_hashes: {:#?}", peaks_hashes);
+
     bagging_peaks_hashes::<_, M>(peaks_hashes)
 }
 
