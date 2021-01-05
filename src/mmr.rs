@@ -412,7 +412,12 @@ fn calculate_root<
     mmr_size: u64,
     proof_iter: I,
 ) -> Result<T> {
+    println!();
+    println!("Calling calculate_peaks_hashes...");
     let peaks_hashes = calculate_peaks_hashes::<_, M, _>(leaves, mmr_size, proof_iter)?;
+
+    println!();
+    println!("Calling bagging_peaks_hashes...");
     bagging_peaks_hashes::<_, M>(peaks_hashes)
 }
 
